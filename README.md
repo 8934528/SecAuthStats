@@ -43,16 +43,16 @@ The **Secure Stats Portal** is a two-part application consisting of:
 
 ## Project Structure
 
-SecAuthStats/
-├── Auth/
-│     ├── auth.html 
-│     ├── auth.css
-│     └── auth.js
-|
-└── stats/
-      ├── stats.html
-      ├── stats.css
-      └── stats.js
+    SecAuthStats/
+    ├── Auth/
+    │     ├── auth.html 
+    │     ├── auth.css
+    │     └── auth.js
+    |
+    └── stats/
+          ├── stats.html
+          ├── stats.css
+          └── stats.js
 
 ---
 
