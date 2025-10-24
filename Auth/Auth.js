@@ -1,11 +1,11 @@
-// =============== SECURITY CONFIGURATION ===============
+// SECURITY CONFIGURATION 
 const SECURITY_LAYERS = {
     DYNAMIC_CODE: "1234567890abcdef",
     ENCRYPTION_KEY: "1234567890abcdef",
     ACCESS_HASH: "a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e"
 };
 
-// =============== UTILITY FUNCTIONS ===============
+// UTILITY FUNCTIONS 
 async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -13,7 +13,7 @@ async function sha256(message) {
     return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-// =============== AUTHENTICATION LOGIC ===============
+// AUTHENTICATION LOGIC
 async function authenticate() {
     const accessKey = document.getElementById('accessKey').value;
     const securityCode = document.getElementById('securityCode').value;
@@ -36,7 +36,7 @@ async function authenticate() {
         return;
     }
     
-    // Create session token
+    // session token
     const sessionToken = {
         token: await sha256(Date.now() + SECURITY_LAYERS.ENCRYPTION_KEY),
         expires: Date.now() + 600000 // 
@@ -44,12 +44,10 @@ async function authenticate() {
     
     // Store session
     localStorage.setItem('statsSession', JSON.stringify(sessionToken));
-    
-    // Redirect to stats page
     window.location.href = '../stats/stats.html';
 }
 
-// =============== UI FUNCTIONS ===============
+// UI FUNCTION
 function showToast(message) {
     const toast = document.getElementById('toast');
     toast.textContent = message;
@@ -60,7 +58,7 @@ function showToast(message) {
     }, 3000);
 }
 
-// =============== SECURITY ENHANCEMENTS ===============
+// SECURITY  
 document.addEventListener('contextmenu', e => e.preventDefault());
 
 document.addEventListener('keydown', e => {
@@ -76,11 +74,10 @@ document.addEventListener('keydown', e => {
     }
 });
 
-// Initialize
 document.getElementById('authBtn').addEventListener('click', authenticate);
 document.getElementById('hint').textContent = `Dynamic code format: ${SECURITY_LAYERS.DYNAMIC_CODE.length} characters`;
 
-// Prevent paste in inputs
+// paste in inputs
 document.getElementById('accessKey').addEventListener('paste', e => e.preventDefault());
 document.getElementById('securityCode').addEventListener('paste', e => e.preventDefault());
 
