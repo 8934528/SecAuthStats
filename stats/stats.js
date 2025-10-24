@@ -1,11 +1,11 @@
-// =============== SECURITY CONFIGURATION ===============
+// SECURITY CONFIGURATION 
 const SECURITY_LAYERS = {
     ENCRYPTION_KEY: "1234567890abcdef"
 };
 
-// =============== SECURITY CHECK ===============
+//SECURITY CHECK
 document.addEventListener('DOMContentLoaded', async function() {
-    // Check for valid session
+    // Ceck for a valid sessio
     const sessionData = localStorage.getItem('statsSession');
     
     if (!sessionData) {
@@ -16,14 +16,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     try {
         const session = JSON.parse(sessionData);
         
-        // Check if session has expired
+        // Ceck if session has expired
         if (Date.now() > session.expires) {
             showToast("Session expired. Please log in again.");
             setTimeout(redirectToAuth, 3000);
             return;
         }
         
-        // Verify session token
+        // Verift session token
         const expectedToken = await sha256(session.expires + SECURITY_LAYERS.ENCRYPTION_KEY);
         if (session.token !== expectedToken) {
             showToast("Invalid session. Please log in again.");
@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             return;
         }
         
-        // Initialize dashboard
         initializeDashboard();
     } catch (e) {
         console.error("Session validation error:", e);
@@ -39,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 });
 
-// =============== UTILITY FUNCTIONS ===============
+// UTILITY FUNCTIONS 
 async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -53,7 +52,6 @@ function redirectToAuth() {
 }
 
 function showToast(message) {
-    // Create toast if not exists
     let toast = document.getElementById('toast');
     if (!toast) {
         toast = document.createElement('div');
@@ -70,22 +68,17 @@ function showToast(message) {
     }, 3000);
 }
 
-// =============== DASHBOARD FUNCTIONS ===============
+//ASHBOARD FUNCTIONS 
 function initializeDashboard() {
-    // Initialize charts
     renderCharts();
-    
-    // Populate tables
     populateTables();
-    
-    // Add event listeners
+   
     document.getElementById('logoutBtn').addEventListener('click', function() {
         localStorage.removeItem('statsSession');
         redirectToAuth();
     });
     
     document.getElementById('refreshBtn').addEventListener('click', function() {
-        // Simulate data refresh
         showToast("Data refreshed");
         updateStats();
     });
@@ -97,7 +90,7 @@ function initializeDashboard() {
 }
 
 function updateStats() {
-    // Simulate updating stats with new values
+    // updating stats with new values
     const stats = [
         { id: "totalVisitors", value: getRandomNumber(24000, 26000).toLocaleString() },
         { id: "uniqueVisitors", value: getRandomNumber(18000, 20000).toLocaleString() },
@@ -109,7 +102,6 @@ function updateStats() {
         document.getElementById(stat.id).textContent = stat.value;
     });
     
-    // Update trend indicators
     document.querySelectorAll('.stat-trend').forEach(el => {
         const isUp = Math.random() > 0.5;
         const percentage = (Math.random() * 10).toFixed(1);
@@ -127,7 +119,7 @@ function getRandomNumber(min, max) {
 }
 
 function renderCharts() {
-    // Destroy existing charts if they exist
+    // drop existing charts if they exist
     if (window.trafficChart) window.trafficChart.destroy();
     if (window.sourcesChart) window.sourcesChart.destroy();
     if (window.countriesChart) window.countriesChart.destroy();
@@ -237,7 +229,6 @@ function renderCharts() {
 }
 
 function populateTables() {
-    // Top Pages
     const topPages = [
         { page: '/', visitors: '8,245', bounce: '32%', time: '5m 12s' },
         { page: '/projects', visitors: '5,672', bounce: '28%', time: '6m 45s' },
@@ -260,7 +251,6 @@ function populateTables() {
         topPagesBody.appendChild(row);
     });
     
-    // Devices & Browsers
     const devices = [
         { device: 'Chrome', sessions: '12,456', users: '9,874' },
         { device: 'Safari', sessions: '4,321', users: '3,987' },
@@ -284,7 +274,7 @@ function populateTables() {
     });
 }
 
-// =============== SECURITY ENHANCEMENTS ===============
+// SECURITY  
 document.addEventListener('contextmenu', e => e.preventDefault());
 
 document.addEventListener('keydown', e => {
