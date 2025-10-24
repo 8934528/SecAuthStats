@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Stats Portal</title>
+    <link rel="stylesheet" href="Auth.css">
+</head>
+<body>
+    <div class="auth-container" id="authContainer">
+        <div class="logo-container">
+            <div class="logo">🔒</div>
+            <h1>SECURE STATS PORTAL</h1>
+        </div>
+        <p>Enter security credentials</p>
+
+        <div class="input-group">
+            <input type="password" id="accessKey" placeholder="Encryption Key" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+            <input type="password" id="securityCode" placeholder="Dynamic Security Code" autocomplete="off">
+        </div>
+
+        <button id="authBtn">AUTHENTICATE</button>
+        <div id="hint" class="hint"></div>
+    </div>
+
+    <div class="toast" id="toast">Invalid credentials!</div>
+
+    <div class="security-footer">
+        <div class="security-indicator">
+            <div class="indicator-bar"></div>
+            <div class="indicator-text">SECURITY LEVEL: MAXIMUM</div>
+        </div>
+        <div class="session-timer">Session will expire in: <span id="sessionTimer">10:00</span></div>
+    </div>
+
+    <script src="Auth.js"></script>
+</body>
+</html>

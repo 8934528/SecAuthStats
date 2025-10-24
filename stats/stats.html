@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Analytics Dashboard</title>
+    <link rel="stylesheet" href="stats.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+        }
+    </style>
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="header-left">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <h1>Website Analytics</h1>
+            </div>
+            <div class="time-period">
+                <label for="timePeriod" class="visually-hidden">Select Time Period</label>
+                <select id="timePeriod">
+                    <option value="7">Last 7 Days</option>
+                    <option value="30" selected>Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
+                    <option value="365">Last Year</option>
+                </select>
+            </div>
+        </div>
+        <div class="header-right">
+            <button id="refreshBtn"><i class="fas fa-sync-alt"></i> Refresh</button>
+            <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="stats-summary">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Visitors</h3>
+                    <h2 id="totalVisitors">24,581</h2>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i> 12.4%
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Unique Visitors</h3>
+                    <h2 id="uniqueVisitors">18,927</h2>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i> 8.2%
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Avg. Session</h3>
+                    <h2 id="avgSession">4m 37s</h2>
+                    <div class="stat-trend down">
+                        <i class="fas fa-arrow-down"></i> 2.1%
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Bounce Rate</h3>
+                    <h2 id="bounceRate">34.7%</h2>
+                    <div class="stat-trend down">
+                        <i class="fas fa-arrow-down"></i> 5.3%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-container">
+            <div class="chart-card main-chart">
+                <div class="chart-header">
+                    <h3>Traffic Overview</h3>
+                    <div class="chart-legend">
+                        <div><span class="legend-color visitors"></span> Visitors</div>
+                        <div><span class="legend-color pageviews"></span> Pageviews</div>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="trafficChart"></canvas>
+                </div>
+            </div>
+
+            <div class="secondary-charts">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Traffic Sources</h3>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="sourcesChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Top Countries</h3>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="countriesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-tables">
+            <div class="table-card">
+                <div class="table-header">
+                    <h3>Top Pages</h3>
+                    <button class="view-all">View All</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Page</th>
+                            <th>Visitors</th>
+                            <th>Bounce Rate</th>
+                            <th>Avg. Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="topPagesBody">
+                        <!-- Filled by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-card">
+                <div class="table-header">
+                    <h3>Devices & Browsers</h3>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Device/Browser</th>
+                            <th>Sessions</th>
+                            <th>New Users</th>
+                        </tr>
+                    </thead>
+                    <tbody id="devicesBody">
+                        <!-- Filled by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="stats.js"></script>
+</body>
+</html>
